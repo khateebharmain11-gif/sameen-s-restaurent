@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Customer Reviews | SAMEEN'S Restaurant</title>
+
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fffdf9;
+    }
+
+    .review-hero {
+      background: linear-gradient(135deg, #fff5e8, #f3e4d2);
+      padding: 85px 20px;
+      text-align: center;
+    }
+
+    .review-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      color: #35251d;
+    }
+
+    .review-hero p {
+      color: #76685e;
+      max-width: 600px;
+      margin: 15px auto 0;
+    }
+
+    .review-section {
+      padding: 65px 0;
+    }
+
+    .section-heading {
+      font-family: 'Playfair Display', serif;
+      color: #35251d;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .section-description {
+      text-align: center;
+      color: #82756b;
+      margin-bottom: 35px;
+    }
+
+    .rating-summary {
+      background: #fff;
+      border: 1px solid #eee2d5;
+      border-radius: 16px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      margin-bottom: 40px;
+    }
+
+    .rating-number {
+      font-size: 3rem;
+      font-weight: 600;
+      color: #9b6939;
+    }
+
+    .stars {
+      color: #e3a32e;
+      font-size: 22px;
+      letter-spacing: 3px;
+    }
+
+    .review-card {
+      height: 100%;
+      padding: 27px;
+      background: #fff;
+      border: 1px solid #eee5dc;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.04);
+      transition: transform 0.3s ease;
+    }
+
+    .review-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .review-card h5 {
+      font-weight: 600;
+      color: #35251d;
+      margin-bottom: 5px;
+    }
+
+    .review-card p {
+      color: #786d64;
+      line-height: 1.8;
+      margin-top: 15px;
+    }
+
+    .review-date {
+      font-size: 12px;
+      color: #999;
+    }
+
+    .review-form-box {
+      max-width: 750px;
+      margin: auto;
+      padding: 35px;
+      background: #fff;
+      border: 1px solid #eee2d5;
+      border-radius: 16px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.06);
+    }
+
+    .review-form-box label {
+      font-weight: 500;
+      color: #49372b;
+      margin-bottom: 8px;
+    }
+
+    .review-form-box .form-control {
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ded4ca;
+    }
+
+    .review-form-box .form-control:focus {
+      border-color: #a7794b;
+      box-shadow: 0 0 0 0.2rem rgba(167,121,75,0.15);
+    }
+
+    .rating-input {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .rating-input input {
+      display: none;
+    }
+
+    .rating-input label {
+      font-size: 32px;
+      color: #d7d0c8;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .rating-input label:hover,
+    .rating-input label:hover ~ label,
+    .rating-input input:checked ~ label {
+      color: #e3a32e;
+    }
+
+    .submit-review-btn {
+      background: #956337;
+      color: white;
+      border: none;
+      padding: 13px 30px;
+      border-radius: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .submit-review-btn:hover {
+      background: #704522;
+      color: white;
+    }
+
+    .success-message {
+      display: none;
+      color: #267443;
+      background: #e9f7ed;
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 15px;
+    }
+
+    @media (max-width: 576px) {
+      .review-hero {
+        padding: 60px 15px;
+      }
+
+      .review-form-box {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <div id="site-nav"></div>
+
+  <!-- Hero Section -->
+  <section class="review-hero">
+    <div class="container">
+      <p class="text-uppercase fw-semibold mb-2">
+        Your Experience Matters
+      </p>
+
+      <h1>Customer Reviews</h1>
+
+      <p>
+        Your happiness is our greatest reward.
+        Read what our guests say about their experience at SAMEEN'S.
+      </p>
+    </div>
+  </section>
+
+  <!-- Reviews Section -->
+  <section class="review-section">
+    <div class="container">
+
+      <h2 class="section-heading">What Our Customers Say</h2>
+
+      <p class="section-description">
+        Honest feedback and wonderful dining experiences.
+      </p>
+
+      <!-- Rating Summary -->
+      <div class="row justify-content-center">
+        <div class="col-lg-5">
+          <div class="rating-summary">
+            <div class="rating-number" id="averageRating">5.0</div>
+            <div class="stars">★★★★★</div>
+            <h5 class="mt-2">Excellent Experience</h5>
+            <p class="text-muted mb-0">
+              <span id="reviewCount">3</span> customer reviews
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Customer Review Cards -->
+      <div class="row g-4" id="reviewsList">
+
+        <div class="col-lg-4 col-md-6">
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <h5 class="mt-3">A Wonderful Experience</h5>
+            <h6>Younus Farhaan</h6>
+            <span class="review-date">Customer Review</span>
+            <p>
+              Amazing food and excellent service.
+              The atmosphere was beautiful and the
+              dishes were full of flavour. Definitely recommended!
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <h5 class="mt-3">Delicious Food</h5>
+            <h6>Harmain khateeb</h6>
+            <span class="review-date">Customer Review</span>
+            <p>
+              Loved the food quality and presentation.
+              Everything was fresh, delicious and served
+              with care. I would love to visit again.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <h5 class="mt-3">Great Ambience</h5>
+            <h6>Saalih Nauman</h6>
+            <span class="review-date">Customer Review</span>
+            <p>
+              A lovely place to enjoy a meal with family
+              and friends. Friendly service and a memorable
+              dining experience.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Write a Review -->
+  <section class="review-section pt-0">
+    <div class="container">
+
+      <h2 class="section-heading">Write Your Review</h2>
+
+      <p class="section-description">
+        Tell us about your experience at SAMEEN'S.
+      </p>
+
+      <div class="review-form-box">
+
+        <form id="reviewForm">
+
+          <div class="mb-3">
+            <label for="customerName">Your Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="customerName"
+              placeholder="Enter your name"
+              required
+              maxlength="60"
+            >
+          </div>
+
+          <div class="mb-3">
+            <label for="customerEmail">Email Address</label>
+            <input
+              type="email"
+              class="form-control"
+              id="customerEmail"
+              placeholder="Enter your email"
+              required
+            >
+          </div>
+
+          <div class="mb-3">
+            <label>Give Your Rating</label>
+
+            <div class="rating-input">
+              <input type="radio" id="star5" name="rating" value="5" required>
+              <label for="star5">★</label>
+
+              <input type="radio" id="star4" name="rating" value="4">
+              <label for="star4">★</label>
+
+              <input type="radio" id="star3" name="rating" value="3">
+              <label for="star3">★</label>
+
+              <input type="radio" id="star2" name="rating" value="2">
+              <label for="star2">★</label>
+
+              <input type="radio" id="star1" name="rating" value="1">
+              <label for="star1">★</label>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="reviewMessage">Your Review</label>
+            <textarea
+              class="form-control"
+              id="reviewMessage"
+              rows="5"
+              placeholder="Share your experience..."
+              required
+              maxlength="1000"
+            ></textarea>
+          </div>
+
+          <button type="submit" class="submit-review-btn">
+            Submit Review
+          </button>
+
+          <div class="success-message" id="successMessage" role="status">
+            Thank you! Your review has been added.
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div id="site-footer"></div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Main Website JS -->
+  <script src="app.js"></script>
+
+  <!-- Review JavaScript -->
+  <script>
+    const reviewForm = document.getElementById("reviewForm");
+    const reviewsList = document.getElementById("reviewsList");
+    const successMessage = document.getElementById("successMessage");
+
+    const STORAGE_KEY = "sameensCustomerReviews";
+
+    // Load saved customer reviews
+    function loadReviews() {
+      const savedReviews = JSON.parse(
+        localStorage.getItem(STORAGE_KEY) || "[]"
+      );
+
+      savedReviews.forEach(review => {
+        addReviewCard(review, false);
+      });
+
+      updateReviewSummary();
+    }
+
+    // Display a review
+    function addReviewCard(review, save = true) {
+      const column = document.createElement("div");
+      column.className = "col-lg-4 col-md-6";
+
+      const card = document.createElement("div");
+      card.className = "review-card";
+
+      const stars = document.createElement("div");
+      stars.className = "stars";
+      stars.textContent = "★".repeat(review.rating) +
+                          "☆".repeat(5 - review.rating);
+
+      const heading = document.createElement("h5");
+      heading.className = "mt-3";
+      heading.textContent = "Customer Experience";
+
+      const name = document.createElement("h6");
+      name.textContent = review.name;
+
+      const date = document.createElement("span");
+      date.className = "review-date";
+      date.textContent = review.date || "Customer Review";
+
+      const message = document.createElement("p");
+      message.textContent = review.message;
+
+      card.append(stars, heading, name, date, message);
+      column.appendChild(card);
+
+      reviewsList.appendChild(column);
+
+      if (save) {
+        const savedReviews = JSON.parse(
+          localStorage.getItem(STORAGE_KEY) || "[]"
+        );
+
+        savedReviews.push(review);
+
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify(savedReviews)
+        );
+      }
+    }
+
+    // Update average rating and review count
+    function updateReviewSummary() {
+      const savedReviews = JSON.parse(
+        localStorage.getItem(STORAGE_KEY) || "[]"
+      );
+
+      const defaultRatings = [5, 5, 5];
+
+      const allRatings = [
+        ...defaultRatings,
+        ...savedReviews.map(review => Number(review.rating))
+      ];
+
+      const total = allRatings.reduce(
+        (sum, rating) => sum + rating, 0
+      );
+
+      const average = total / allRatings.length;
+
+      document.getElementById("averageRating").textContent =
+        average.toFixed(1);
+
+      document.getElementById("reviewCount").textContent =
+        allRatings.length;
+    }
+
+    // Submit a new review
+    reviewForm.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("customerName").value.trim();
+      const email = document.getElementById("customerEmail").value.trim();
+      const message = document.getElementById("reviewMessage").value.trim();
+
+      const ratingElement = document.querySelector(
+        'input[name="rating"]:checked'
+      );
+
+      if (!ratingElement || !name || !email || !message) {
+        alert("Please complete all fields and select a rating.");
+        return;
+      }
+
+      const review = {
+        name: name,
+        rating: Number(ratingElement.value),
+        message: message,
+        date: new Date().toLocaleDateString()
+      };
+
+      addReviewCard(review, true);
+      updateReviewSummary();
+
+      reviewForm.reset();
+
+      successMessage.style.display = "block";
+
+      setTimeout(() => {
+        successMessage.style.display = "none";
+      }, 4000);
+    });
+
+    // Start
+    loadReviews();
+  </script>
+
+</body>
+</html>

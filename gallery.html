@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery | SAMEEN'S Restaurant</title>
+
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Website CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Gallery Hero */
+    .gallery-hero {
+      padding: 85px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, #fff8ed, #f8ead8);
+    }
+
+    .gallery-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      color: #35251d;
+      font-weight: 700;
+    }
+
+    .gallery-hero p {
+      color: #78685d;
+      max-width: 600px;
+      margin: 15px auto 0;
+    }
+
+    #navbar {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative;
+    z-index: 9999;
+}
+    /* Gallery Section */
+    .gallery-section {
+      padding: 65px 0;
+    }
+
+    .gallery-title {
+      font-family: 'Playfair Display', serif;
+      color: #35251d;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .gallery-subtitle {
+      text-align: center;
+      color: #81746a;
+      margin-bottom: 35px;
+    }
+
+    /* Gallery Cards */
+    .gallery-card {
+      margin-bottom: 24px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 14px;
+      cursor: pointer;
+      background: #f5eee6;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 270px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+    /* Image Overlay */
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: end;
+      padding: 20px;
+      color: white;
+      background: linear-gradient(
+        transparent 45%,
+        rgba(0,0,0,0.75)
+      );
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    .gallery-overlay h5 {
+      margin: 0;
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* Gallery Filters */
+    .gallery-filter {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 35px;
+    }
+
+    .filter-btn {
+      border: 1px solid #b78b57;
+      background: transparent;
+      color: #68472c;
+      padding: 9px 22px;
+      border-radius: 30px;
+      transition: 0.3s;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: #9b6939;
+      color: white;
+    }
+
+    /* Hide Filtered Images */
+    .gallery-card.hide {
+      display: none !important;
+    }
+
+    /* Gallery Modal */
+    .gallery-modal img {
+      width: 100%;
+      max-height: 75vh;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    #modalImage {
+      width: 100%;
+      max-height: 75vh;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 576px) {
+      .gallery-item img {
+        height: 230px;
+      }
+
+      .gallery-hero {
+        padding: 60px 15px;
+      }
+
+      .filter-btn {
+        padding: 8px 16px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <div id="site-nav"></div>
+  
+
+
+  <!-- Hero Section -->
+  <section class="gallery-hero">
+    <div class="container">
+      <p class="text-uppercase fw-semibold mb-2">
+        A Taste of Elegance
+      </p>
+
+      <h1>Our Gallery</h1>
+
+      <p>
+        Explore the delicious flavours, beautiful dishes and
+        memorable dining experiences at SAMEEN'S.
+      </p>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section class="gallery-section">
+    <div class="container">
+
+      <h2 class="gallery-title">A Visual Feast</h2>
+
+      <p class="gallery-subtitle">
+        Every dish tells a story. Discover ours.
+      </p>
+
+      <!-- Category Filters -->
+      <div class="gallery-filter">
+
+        <button class="filter-btn active" data-filter="all"
+          aria-pressed="true">All</button>
+
+        <button class="filter-btn" data-filter="starters"
+          aria-pressed="false">Starters</button>
+
+        <button class="filter-btn" data-filter="main"
+          aria-pressed="false">Main Course</button>
+
+        <button class="filter-btn" data-filter="desserts"
+          aria-pressed="false">Desserts</button>
+
+        <button class="filter-btn" data-filter="ambience"
+          aria-pressed="false">Ambience</button>
+
+      </div>
+
+      <!-- Gallery Images -->
+      <!-- IMPORTANT: All gallery cards are inside this row -->
+
+      <div class="row">
+
+        <!-- Image 1 -->
+        <div class="col-lg-4 col-md-6 gallery-card"
+             data-category="starters">
+
+          <div class="gallery-item"
+               data-title="Event Hall"
+               data-image="https://i.pinimg.com/originals/9f/31/e7/9f31e75141c98de25bf0e10b92fff9e4.jpg">
+
+            <img
+              src="https://i.pinimg.com/originals/9f/31/e7/9f31e75141c98de25bf0e10b92fff9e4.jpg"
+              alt="Event hall"
+              loading="lazy">
+
+            <div class="gallery-overlay">
+              <h5>Event Hall</h5>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Image 2 -->
+        <div class="col-lg-4 col-md-6 gallery-card"
+             data-category="main">
+
+          <div class="gallery-item"
+               data-title="Special Biryani"
+               data-image="https://www.thespruceeats.com/thmb/SalyKjzBU-K1Bv-FTFWnbd6ckjY=/2121x1414/filters:fill(auto,1)/GettyImages-639704020-5c4a63ecc9e77c00017bfebf.jpg">
+
+            <img
+              src="https://www.thespruceeats.com/thmb/SalyKjzBU-K1Bv-FTFWnbd6ckjY=/2121x1414/filters:fill(auto,1)/GettyImages-639704020-5c4a63ecc9e77c00017bfebf.jpg"
+              alt="Special biryani"
+              loading="lazy">
+
+            <div class="gallery-overlay">
+              <h5>Special Biryani</h5>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Image 3 -->
+        <div class="col-lg-4 col-md-6 gallery-card"
+             data-category="desserts">
+
+          <div class="gallery-item"
+               data-title="Sweet Desserts"
+               data-image="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=1000">
+
+            <img
+              src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=700"
+              alt="Sweet desserts"
+              loading="lazy">
+
+            <div class="gallery-overlay">
+              <h5>Sweet Desserts</h5>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Image 4 -->
+        <div class="col-lg-4 col-md-6 gallery-card"
+             data-category="main">
+
+          <div class="gallery-item"
+               data-title="Grilled Specialities"
+               data-image="https://images.unsplash.com/photo-1544025162-d76694265947?w=1000">
+
+            <img
+              src="https://images.unsplash.com/photo-1544025162-d76694265947?w=700"
+              alt="Grilled specialities"
+              loading="lazy">
+
+            <div class="gallery-overlay">
+              <h5>Grilled Specialities</h5>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Image 5 -->
+        <div class="col-lg-4 col-md-6 gallery-card"
+             data-category="starters">
+
+          <div class="gallery-item"
+               data-title="Royal Rasoi"
+               data-image="https://koala.sh/api/image/v2-afp98-jea24.jpg?width=1216&height=832&dream">
+
+            <img
+              src="https://koala.sh/api/image/v2-afp98-jea24.jpg?width=1216&height=832&dream"
+              alt="Beautiful kitchen"
+              loading="lazy">
+
+            <div class="gallery-overlay">
+              <h5>Royal Rasoi</h5>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Image 6 -->
+        <div class="col-lg-4 col-md-6 gallery-card"
+             data-category="ambience">
+
+          <div class="gallery-item"
+               data-title="Restaurant Ambience"
+               data-image="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1000">
+
+            <img
+              src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=700"
+              alt="Restaurant ambience"
+              loading="lazy">
+
+            <div class="gallery-overlay">
+              <h5>Restaurant Ambience</h5>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Image 7 -->
+        <div class="col-lg-4 col-md-6 gallery-card"
+             data-category="desserts">
+
+          <div class="gallery-item"
+               data-title="Chocolate Treats"
+               data-image="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=1000">
+
+            <img
+              src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=700"
+              alt="Chocolate desserts"
+              loading="lazy">
+
+            <div class="gallery-overlay">
+              <h5>Chocolate Treats</h5>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Image 8 -->
+        <div class="col-lg-4 col-md-6 gallery-card"
+             data-category="main">
+
+          <div class="gallery-item"
+               data-title="Our Signature Dish"
+               data-image="https://images.unsplash.com/photo-1547592180-85f173990554?w=1000">
+
+            <img
+              src="https://images.unsplash.com/photo-1547592180-85f173990554?w=700"
+              alt="Signature dish"
+              loading="lazy">
+
+            <div class="gallery-overlay">
+              <h5>Our Signature Dish</h5>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Image 9 -->
+        <div class="col-lg-4 col-md-6 gallery-card"
+             data-category="ambience">
+
+          <div class="gallery-item"
+               data-title="Fine Dining Experience"
+               data-image="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1000">
+
+            <img
+              src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700"
+              alt="Fine dining experience"
+              loading="lazy">
+
+            <div class="gallery-overlay">
+              <h5>Fine Dining Experience</h5>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+      <!-- End Gallery Row -->
+
+    </div>
+  </section>
+
+  <!-- Image Preview Modal -->
+  <div class="modal fade" id="galleryModal" tabindex="-1"
+       aria-labelledby="galleryModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+
+      <div class="modal-content p-2">
+
+        <div class="modal-header border-0">
+
+          <h5 class="modal-title" id="galleryModalLabel">
+            SAMEEN'S Gallery
+          </h5>
+
+          <button type="button" class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"></button>
+
+        </div>
+
+        <div class="modal-body text-center">
+
+          <img id="modalImage" src=""
+               alt="Gallery preview">
+
+          <h5 id="modalTitle" class="mt-3"></h5>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div id="site-footer"></div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Website JS -->
+  <script src="app.js"></script>
+
+  <!-- Gallery JavaScript -->
+  <script>
+
+    // Gallery Category Filtering
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const galleryCards = document.querySelectorAll(".gallery-card");
+
+    filterButtons.forEach(button => {
+
+      button.addEventListener("click", () => {
+
+        filterButtons.forEach(btn => {
+          btn.classList.remove("active");
+          btn.setAttribute("aria-pressed", "false");
+        });
+
+        button.classList.add("active");
+        button.setAttribute("aria-pressed", "true");
+
+        const filter = button.dataset.filter;
+
+        galleryCards.forEach(card => {
+
+          const category = card.dataset.category;
+
+          if (filter === "all" || category === filter) {
+            card.classList.remove("hide");
+          } else {
+            card.classList.add("hide");
+          }
+
+        });
+
+      });
+
+    });
+
+
+    // Image Click Preview
+    const galleryItems = document.querySelectorAll(".gallery-item");
+
+    const modalElement = document.getElementById("galleryModal");
+
+    const galleryModal = new bootstrap.Modal(modalElement);
+
+    galleryItems.forEach(item => {
+
+      item.addEventListener("click", () => {
+
+        const image = item.dataset.image;
+        const title = item.dataset.title;
+
+        document.getElementById("modalImage").src = image;
+
+        document.getElementById("modalTitle").textContent = title;
+
+        galleryModal.show();
+
+      });
+
+    });
+
+  </script>
+
+</body>
+</html>
